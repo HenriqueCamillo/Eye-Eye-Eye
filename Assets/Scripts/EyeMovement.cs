@@ -44,7 +44,7 @@ public class EyeMovement : MonoBehaviour
 
         // Walk sideways
         float horizontalInput = Input.GetAxis("Horizontal");
-        float horizontalInputRaw = Input.GetAxis("Horizontal");
+        float horizontalInputRaw = Input.GetAxisRaw("Horizontal");
         if (!wallJumping)
             rBody.velocity = new Vector2(horizontalInput * speed, rBody.velocity.y);
         else 
