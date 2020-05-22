@@ -5,6 +5,9 @@ using UnityEngine;
 public class EyeMovement : MonoBehaviour
 {
     private Rigidbody2D rBody;
+    private Animator animator;
+    private SpriteRenderer sRenderer;
+
     [SerializeField] float speed;
     [SerializeField] float slideSpeed;
 
@@ -19,8 +22,9 @@ public class EyeMovement : MonoBehaviour
     [SerializeField] float lowJumpMultiplier;
 
     [Header("Detectors")]
-    [SerializeField] float groundDetectorOffset;
-    [SerializeField] float wallDetectorOffset;
+    [SerializeField] Transform wallDetectorL;
+    [SerializeField] Transform wallDetectorR;
+    [SerializeField] Transform groundDetector;
     [SerializeField] float detectorRadius;
 
     private bool isGrounded;
@@ -35,12 +39,27 @@ public class EyeMovement : MonoBehaviour
     void Start()
     {
         rBody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        sRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
     {
+        
         if (rBody.velocity.y <= 0f)
+        {
             rising = false;
+            if (rBody.velocity.y < 0f)
+                animator.SetTrigger("MidAir");
+        }
+        else
+            animator.ResetTrigger("MidAir");
+
+
+        if (rBody.velocity.x > 0.01f)
+            sRenderer.flipX = false;
+        else if (rBody.velocity.x < -0.01f)
+            sRenderer.flipX = true;
 
         // Walk sideways
         float horizontalInput = Input.GetAxis("Horizontal");
@@ -52,13 +71,19 @@ public class EyeMovement : MonoBehaviour
 
 
         // Wall and Ground detenction
-        isGrounded = Physics2D.OverlapCircle((Vector2)transform.position + Vector2.down * groundDetectorOffset, detectorRadius);
+        isGrounded = Physics2D.OverlapCircle(groundDetector.position, detectorRadius);
+        animator.SetBool("Grounded", isGrounded);
 
-        isOnLeftWall =  Physics2D.OverlapCircle((Vector2)transform.position + Vector2.left * wallDetectorOffset, detectorRadius);
-        isOnRightWall = Physics2D.OverlapCircle((Vector2)transform.position + Vector2.right * wallDetectorOffset, detectorRadius);
+        isOnLeftWall =  Physics2D.OverlapCircle(wallDetectorL.position, detectorRadius);
+        isOnRightWall = Physics2D.OverlapCircle(wallDetectorR.position, detectorRadius);
 
         isOnWall = isOnLeftWall || isOnRightWall;
         wallSide = !isOnWall ? 0 : isOnLeftWall ? -1 : 1;
+
+        if (isGrounded)
+            animator.SetTrigger("Fall");
+        else
+            animator.ResetTrigger("Fall");
 
         // Checks if should slide
         if (wallSide == horizontalInputRaw)
@@ -76,18 +101,33 @@ public class EyeMovement : MonoBehaviour
                 rBody.velocity = new Vector2(rBody.velocity.x, -slideSpeed);
             else
                 rBody.velocity = Vector2.Lerp(rBody.velocity, new Vector2(rBody.velocity.x, -slideSpeed), Time.deltaTime);
+
+            animator.SetBool("Sliding", true);
+
+            if (isOnLeftWall)
+                sRenderer.flipX = false;
+            else
+                sRenderer.flipX = true;
         }
+        else
+            animator.SetBool("Sliding", false);
 
         // Jump
         if (Input.GetKeyDown(KeyCode.Z))
         {
             if (isGrounded)
+            {
                 rBody.velocity = new Vector2(rBody.velocity.x, jumpForce);
+                animator.SetTrigger("Jump");
+            }
             else if (isOnWall && isSliding)
             {
                 Vector2 jumpDirection = new Vector2(wallJumpDirection.x * -wallSide, wallJumpDirection.y);
                 rBody.velocity = jumpDirection.normalized * wallJumpForce;
                 StartCoroutine(SetWallJumpFlag());
+                animator.ResetTrigger("MidAir");
+                animator.SetTrigger("Jump");
+                animator.SetBool("Sliding", false);
             }
 
             if (rBody.velocity.y > 0f)
@@ -128,13 +168,13 @@ public class EyeMovement : MonoBehaviour
 		if (col.gameObject.name.Equals ("Platform"))
 			this.transform.parent = null;
 	}
-    
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
 
-        Gizmos.DrawWireSphere((Vector2)transform.position + Vector2.left * wallDetectorOffset, detectorRadius);
-        Gizmos.DrawWireSphere((Vector2)transform.position + Vector2.right * wallDetectorOffset, detectorRadius);
-        Gizmos.DrawWireSphere((Vector2)transform.position + Vector2.down * groundDetectorOffset, detectorRadius);
+        Gizmos.DrawWireSphere(wallDetectorL.position, detectorRadius);
+        Gizmos.DrawWireSphere(wallDetectorR.position, detectorRadius);
+        Gizmos.DrawWireSphere(groundDetector.position, detectorRadius);
     }
 }
