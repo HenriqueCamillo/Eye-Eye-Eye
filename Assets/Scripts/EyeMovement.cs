@@ -117,6 +117,18 @@ public class EyeMovement : MonoBehaviour
             rBody.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1f) * Time.deltaTime;
     }
 
+	void OnCollisionEnter2D(Collision2D col)
+	{
+		if (col.gameObject.name.Equals ("Platform"))
+			this.transform.parent = col.transform;
+	}
+
+	void OnCollisionExit2D(Collision2D col)
+	{
+		if (col.gameObject.name.Equals ("Platform"))
+			this.transform.parent = null;
+	}
+    
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
