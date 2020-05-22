@@ -8,12 +8,20 @@ public class EyeMovement : MonoBehaviour
     private Animator animator;
     private SpriteRenderer sRenderer;
 
+    [Header("Roll")]
     [SerializeField] float speed;
-    [SerializeField] float slideSpeed;
+    [SerializeField] float rollSpeed;
+    [SerializeField] float acceleration;
+    [SerializeField] float accelerationTime;
+    private float runStart;
+    private int runDirection;
 
+
+    [Header("Jump")]
     [SerializeField] float jumpForce;
     [SerializeField] float wallJumpForce;
     [SerializeField] float wallJumpTime;
+    [SerializeField] float slideSpeed;
     [SerializeField] float stopSlidingTime;
     [SerializeField] Vector2 wallJumpDirection;
     
@@ -35,6 +43,8 @@ public class EyeMovement : MonoBehaviour
     private bool isSliding;
     private bool wallJumping;
     private bool rising;
+    private bool isRunning;
+    private bool preparingRun;
 
     void Start()
     {
@@ -46,6 +56,8 @@ public class EyeMovement : MonoBehaviour
     private void Update()
     {
         
+
+
         if (rBody.velocity.y <= 0f)
         {
             rising = false;
@@ -64,10 +76,20 @@ public class EyeMovement : MonoBehaviour
         // Walk sideways
         float horizontalInput = Input.GetAxis("Horizontal");
         float horizontalInputRaw = Input.GetAxisRaw("Horizontal");
-        if (!wallJumping)
-            rBody.velocity = new Vector2(horizontalInput * speed, rBody.velocity.y);
+        RunningCheck((int)horizontalInputRaw);
+
+        float movementSpeed;
+        
+        if (isRunning)
+            movementSpeed = Mathf.Lerp(Mathf.Abs(rBody.velocity.x), rollSpeed, acceleration);
         else 
-            rBody.velocity = Vector2.Lerp(rBody.velocity, new Vector2(horizontalInput * speed, rBody.velocity.y), Time.deltaTime);
+            movementSpeed = speed;
+        Debug.Log(movementSpeed);
+
+        if (!wallJumping)
+            rBody.velocity = new Vector2(horizontalInput * movementSpeed, rBody.velocity.y);
+        else 
+            rBody.velocity = Vector2.Lerp(rBody.velocity, new Vector2(horizontalInput * movementSpeed, rBody.velocity.y), Time.deltaTime);
 
 
         // Wall and Ground detenction
@@ -119,6 +141,9 @@ public class EyeMovement : MonoBehaviour
             {
                 rBody.velocity = new Vector2(rBody.velocity.x, jumpForce);
                 animator.SetTrigger("Jump");
+
+                if (rBody.velocity.y > 0f)
+                    rising = true;
             }
             else if (isOnWall && isSliding)
             {
@@ -128,13 +153,42 @@ public class EyeMovement : MonoBehaviour
                 animator.ResetTrigger("MidAir");
                 animator.SetTrigger("Jump");
                 animator.SetBool("Sliding", false);
+
+                if (rBody.velocity.y > 0f)
+                    rising = true;
             }
 
-            if (rBody.velocity.y > 0f)
-                rising = true;
         }
 
         ApplyJumpGravityModifiers();
+    }
+
+    private void RunningCheck(int direction)
+    {
+        if (!isRunning)
+        {
+            if (preparingRun)
+            {
+                if (direction != runDirection || !isGrounded)
+                    preparingRun = false;
+                else if (Time.time - runStart > accelerationTime)
+                {
+                    preparingRun = false;
+                    isRunning = true;
+                }
+            }
+            else if (direction != 0 && isGrounded)
+            {
+                preparingRun = true; 
+                runDirection = direction; 
+                runStart = Time.time;
+            }
+        }
+        else if (runDirection != direction)
+        {
+            Debug.Log(runDirection + " " + direction);
+            isRunning = false;
+        }
     }
 
     private IEnumerator SetWallJumpFlag()
