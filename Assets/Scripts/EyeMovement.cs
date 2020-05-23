@@ -55,20 +55,28 @@ public class EyeMovement : MonoBehaviour
 
     private void Update()
     {
-        if (rBody.velocity.y <= 0f)
-        {
-            rising = false;
-            if (rBody.velocity.y < 0f)
-                animator.SetTrigger("MidAir");
-        }
+        // Don't try to merge the two ifs below. It doesn't make sense, but it doensn't work.
+        if (rBody.velocity.y < 0f)
+            animator.SetTrigger("MidAir");
         else
             animator.ResetTrigger("MidAir");
 
+        if (rBody.velocity.y <= 0f)
+            rising = false;
 
         if (rBody.velocity.x > 0.001f)
+        {
             sRenderer.flipX = false;
+            animator.SetBool("Moving", true);
+        }
         else if (rBody.velocity.x < -0.001f)
+        {
             sRenderer.flipX = true;
+            animator.SetBool("Moving", true);
+        }
+        else
+            animator.SetBool("Moving", false);
+
 
         // Walk sideways
         float horizontalInput = Input.GetAxis("Horizontal");
@@ -85,12 +93,10 @@ public class EyeMovement : MonoBehaviour
         if (!wallJumping)
         {
             int runningDirection = rBody.velocity.x > 0 ? 1 : rBody.velocity.x < 0 ? -1 : 0;
-            Debug.Log(runningDirection + " " + horizontalInputRaw);
             if (runningDirection != horizontalInputRaw)
             {
                 movementSpeed = Mathf.Lerp(rBody.velocity.x, horizontalInput * speed, acceleration);
                 rBody.velocity = new Vector2(movementSpeed, rBody.velocity.y);
-                Debug.Log(movementSpeed);
             }
             else
                 rBody.velocity = new Vector2(horizontalInput * movementSpeed, rBody.velocity.y);
