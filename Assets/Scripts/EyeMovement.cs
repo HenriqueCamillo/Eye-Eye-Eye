@@ -7,12 +7,14 @@ public class EyeMovement : MonoBehaviour
     private Rigidbody2D rBody;
     private Animator animator;
     private SpriteRenderer sRenderer;
+    private Player_Health health;
 
     [Header("Roll")]
     [SerializeField] float speed;
     [SerializeField] float rollSpeed;
     [SerializeField] float acceleration;
     [SerializeField] float accelerationTime;
+    [SerializeField] int rollDamage;
     private float runStart;
     private int runDirection;
 
@@ -51,6 +53,7 @@ public class EyeMovement : MonoBehaviour
         rBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         sRenderer = GetComponent<SpriteRenderer>();
+        health = GetComponent<Player_Health>();
     }
 
     private void Update()
@@ -185,6 +188,10 @@ public class EyeMovement : MonoBehaviour
             if (isRunning)
                 EyeCameraController.instance.CloseEyes();
         }
+
+        // Roll damage
+        if (isRunning && isGrounded && !EyeCameraController.instance.isClosed)
+            health.TakeDamage(rollDamage);
 
         ApplyJumpGravityModifiers();
     }

@@ -217,6 +217,7 @@ MonoBehaviour:
   rollSpeed: 10
   acceleration: 0.3
   accelerationTime: 0.75
+  rollDamage: 35
   jumpForce: 7
   wallJumpForce: 7
   wallJumpTime: 0.125
