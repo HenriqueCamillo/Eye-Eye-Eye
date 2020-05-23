@@ -19,4 +19,10 @@ public class PauseMenu : MonoBehaviour
 	{
 		Time.timeScale = 1f;
 	}
+
+	public void QuitGame()
+	{
+		Debug.Log("quit game");
+		Application.Quit();
+	}
 }

@@ -46,15 +46,6 @@ public class HealthBar : MonoBehaviour
 			openEye.color = tempOEcolor;
 			closedEye.color = tempCEcolor;
 		}
-
-		if(Input.GetKeyDown("mouse 0"))
-		{
-			SetPowerUpVisibility(true);
-		}
-		if(Input.GetKeyDown("mouse 1"))
-		{
-			SetPowerUpVisibility(false);
-		}
 	}
 
 	public void SetMaxHealth(int health)
