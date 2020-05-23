@@ -11,18 +11,16 @@ public class open_close : MonoBehaviour
 	{
 		anim = GetComponent<Animator>();
 	}
-	// Update is called once per frame
-	void Update()
+
+	public void OpenEyes()
 	{
-		if(Input.GetKeyDown("space") && eye_lid_closed == false)
-		{
-			anim.SetBool("isClosed", true);
-			eye_lid_closed = true;
-		}
-		else if(Input.GetKeyDown("space") && eye_lid_closed == true)
-		{
-			anim.SetBool("isClosed", false);
-			eye_lid_closed = false;
-		}
+		anim.SetBool("isClosed", false);
+		eye_lid_closed = false;
+	}
+
+	public void CloseEyes()
+	{
+		anim.SetBool("isClosed", true);
+		eye_lid_closed = true;
 	}
 }

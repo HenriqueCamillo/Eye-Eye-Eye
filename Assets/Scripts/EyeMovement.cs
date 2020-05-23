@@ -139,6 +139,7 @@ public class EyeMovement : MonoBehaviour
 
             animator.SetBool("Sliding", true);
             animator.SetBool("Running", false);
+            isRunning = false;
 
             if (isOnLeftWall)
                 sRenderer.flipX = false;
@@ -176,6 +177,15 @@ public class EyeMovement : MonoBehaviour
 
         }
 
+        // Open/Close eyes
+        if (Input.GetKeyDown(KeyCode.X) || !isRunning)
+            EyeCameraController.instance.OpenEyes();
+        else if (Input.GetKeyUp(KeyCode.X))
+        {
+            if (isRunning)
+                EyeCameraController.instance.CloseEyes();
+        }
+
         ApplyJumpGravityModifiers();
     }
 
@@ -191,6 +201,7 @@ public class EyeMovement : MonoBehaviour
                 {
                     preparingRun = false;
                     isRunning = true;
+                    EyeCameraController.instance.CloseEyes();
                     animator.SetBool("Running", true);
                 }
             }
