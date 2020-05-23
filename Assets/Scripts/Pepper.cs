@@ -9,7 +9,7 @@ public class Pepper : MonoBehaviour
 		
     void OnTriggerStay2D(Collider2D other)
 	{
-		other.gameObject.GetComponent<Player_Health>().TakeDamage(20);
-		
+		if (other.CompareTag("Jogador"))
+			other.gameObject.GetComponent<Player_Health>().TakeDamage(20);
 	}
 }
