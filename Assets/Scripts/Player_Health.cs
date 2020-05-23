@@ -6,7 +6,7 @@ public class Player_Health : MonoBehaviour
 {
 	public int maxHealth = 100;
 	public int currentHealth;
-	public HealthBar healthBar;
+	public HealthBar2 healthBar2;
 	//public PlayerMovement movement;
 	public float timeInvincible = 1.0f;
     bool isInvincible;
@@ -15,7 +15,7 @@ public class Player_Health : MonoBehaviour
     void Start()
     {
 		currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
+        healthBar2.SetMaxHealth(maxHealth);
     }
     
     void Update()
@@ -41,7 +41,7 @@ public class Player_Health : MonoBehaviour
         }
 		
 		currentHealth -= damage;
-		healthBar.SetHealth(currentHealth);
+		healthBar2.SetHealth(currentHealth);
 		
 		if (currentHealth <= 0)
 		{
