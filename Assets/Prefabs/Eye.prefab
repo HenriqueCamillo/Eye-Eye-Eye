@@ -212,10 +212,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a402fe36a50808f4980eea601b42e6d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 3
   rollSpeed: 10
   acceleration: 0.3
-  accelerationTime: 1
+  accelerationTime: 0.75
   jumpForce: 7
   wallJumpForce: 7
   wallJumpTime: 0.125

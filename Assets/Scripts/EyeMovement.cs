@@ -55,9 +55,6 @@ public class EyeMovement : MonoBehaviour
 
     private void Update()
     {
-        
-
-
         if (rBody.velocity.y <= 0f)
         {
             rising = false;
@@ -68,9 +65,9 @@ public class EyeMovement : MonoBehaviour
             animator.ResetTrigger("MidAir");
 
 
-        if (rBody.velocity.x > 0.01f)
+        if (rBody.velocity.x > 0.001f)
             sRenderer.flipX = false;
-        else if (rBody.velocity.x < -0.01f)
+        else if (rBody.velocity.x < -0.001f)
             sRenderer.flipX = true;
 
         // Walk sideways
@@ -84,10 +81,20 @@ public class EyeMovement : MonoBehaviour
             movementSpeed = Mathf.Lerp(Mathf.Abs(rBody.velocity.x), rollSpeed, acceleration);
         else 
             movementSpeed = speed;
-        Debug.Log(movementSpeed);
 
         if (!wallJumping)
-            rBody.velocity = new Vector2(horizontalInput * movementSpeed, rBody.velocity.y);
+        {
+            int runningDirection = rBody.velocity.x > 0 ? 1 : rBody.velocity.x < 0 ? -1 : 0;
+            Debug.Log(runningDirection + " " + horizontalInputRaw);
+            if (runningDirection != horizontalInputRaw)
+            {
+                movementSpeed = Mathf.Lerp(rBody.velocity.x, horizontalInput * speed, acceleration);
+                rBody.velocity = new Vector2(movementSpeed, rBody.velocity.y);
+                Debug.Log(movementSpeed);
+            }
+            else
+                rBody.velocity = new Vector2(horizontalInput * movementSpeed, rBody.velocity.y);
+        }
         else 
             rBody.velocity = Vector2.Lerp(rBody.velocity, new Vector2(horizontalInput * movementSpeed, rBody.velocity.y), Time.deltaTime);
 
@@ -175,6 +182,7 @@ public class EyeMovement : MonoBehaviour
                 {
                     preparingRun = false;
                     isRunning = true;
+                    animator.SetBool("Running", true);
                 }
             }
             else if (direction != 0 && isGrounded)
@@ -186,8 +194,8 @@ public class EyeMovement : MonoBehaviour
         }
         else if (runDirection != direction)
         {
-            Debug.Log(runDirection + " " + direction);
             isRunning = false;
+            animator.SetBool("Running", false);
         }
     }
 
