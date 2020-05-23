@@ -138,6 +138,7 @@ public class EyeMovement : MonoBehaviour
                 rBody.velocity = Vector2.Lerp(rBody.velocity, new Vector2(rBody.velocity.x, -slideSpeed), Time.deltaTime);
 
             animator.SetBool("Sliding", true);
+            animator.SetBool("Running", false);
 
             if (isOnLeftWall)
                 sRenderer.flipX = false;
@@ -153,7 +154,8 @@ public class EyeMovement : MonoBehaviour
             if (isGrounded)
             {
                 rBody.velocity = new Vector2(rBody.velocity.x, jumpForce);
-                animator.SetTrigger("Jump");
+                if (!isRunning)
+                    animator.SetTrigger("Jump");
 
                 if (rBody.velocity.y > 0f)
                     rising = true;
@@ -164,7 +166,8 @@ public class EyeMovement : MonoBehaviour
                 rBody.velocity = jumpDirection.normalized * wallJumpForce;
                 StartCoroutine(SetWallJumpFlag());
                 animator.ResetTrigger("MidAir");
-                animator.SetTrigger("Jump");
+                if (!isRunning)
+                    animator.SetTrigger("Jump");
                 animator.SetBool("Sliding", false);
 
                 if (rBody.velocity.y > 0f)
