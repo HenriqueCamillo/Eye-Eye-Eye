@@ -57,11 +57,12 @@ public class Player_Controller : MonoBehaviour
 		moveInput = Input.GetAxisRaw("Horizontal");
 		rb.velocity = new Vector2(moveInput * speed, rb.velocity.y); 
 				
-		
+		/*
 		if (rb.position.y < -2f)
 		{
 			FindObjectOfType<GameManager>().EndGame();
 		}
+		*/
 	}
 }
 
