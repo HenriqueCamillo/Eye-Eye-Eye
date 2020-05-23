@@ -7,7 +7,7 @@ public class EyeCameraController : MonoBehaviour
     [SerializeField] open_close eyeLidBottom;
     public bool isClosed;
 
-    private void Start()
+    private void Awake()
     {
         if (instance == null)
             instance = this;

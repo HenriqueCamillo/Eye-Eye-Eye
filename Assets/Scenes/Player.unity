@@ -227,7 +227,7 @@ Transform:
   m_LocalScale: {x: 34.1048, y: 3.924, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!114 &346431880 stripped
 MonoBehaviour:
@@ -430,7 +430,7 @@ Transform:
   m_LocalScale: {x: 47.9, y: 3.924, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!1 &587790623 stripped
 GameObject:
@@ -560,7 +560,7 @@ Transform:
   m_LocalScale: {x: 100, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1979168476
 GameObject:
@@ -668,7 +668,7 @@ Transform:
   m_LocalScale: {x: 47.9, y: 3.924, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!1 &2070643690
 GameObject:
@@ -734,7 +734,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &6917484766723086774
 PrefabInstance:
@@ -762,6 +762,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Eye
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917484767821348802, guid: 23beaf6e3784f5b4c9966ea296a0beb6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6917484767821348814, guid: 23beaf6e3784f5b4c9966ea296a0beb6,
         type: 3}
@@ -801,7 +806,7 @@ PrefabInstance:
     - target: {fileID: 6917484767821348814, guid: 23beaf6e3784f5b4c9966ea296a0beb6,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6917484767821348814, guid: 23beaf6e3784f5b4c9966ea296a0beb6,
         type: 3}
@@ -818,7 +823,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 587790630, guid: 23beaf6e3784f5b4c9966ea296a0beb6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 23beaf6e3784f5b4c9966ea296a0beb6, type: 3}
 --- !u!1001 &7492963529223614557
 PrefabInstance:
@@ -880,7 +886,7 @@ PrefabInstance:
     - target: {fileID: 7492963529238479435, guid: c3ef214bd4320a14a9141e32010afa62,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7492963529238479435, guid: c3ef214bd4320a14a9141e32010afa62,
         type: 3}
