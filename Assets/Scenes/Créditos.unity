@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'QUIT
+  m_text: 'MAIN MENU
 
 '
   m_isRightToLeft: 0
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 0
+  m_firstOverflowCharacterIndex: -1
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -248,10 +248,10 @@ MonoBehaviour:
   m_margin: {x: -0.60824585, y: 0, z: -1.1412964, w: 0}
   m_textInfo:
     textComponent: {fileID: 44906898}
-    characterCount: 5
+    characterCount: 10
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 1
+    spaceCount: 2
+    wordCount: 2
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -514,7 +514,7 @@ GameObject:
   - component: {fileID: 381888730}
   - component: {fileID: 381888729}
   m_Layer: 5
-  m_Name: Quit Button
+  m_Name: Main Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -537,8 +537,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -54.2}
-  m_SizeDelta: {x: 215.75, y: 93.22}
+  m_AnchoredPosition: {x: 1, y: -37.9}
+  m_SizeDelta: {x: 689.6, y: 125.74}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &381888729
 MonoBehaviour:
@@ -584,7 +584,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1275146792}
-        m_MethodName: QuitGame
+        m_MethodName: LoadMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1334,7 +1334,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Patrick Esc\xF3rcia Taraborelli\nHenrique Matarazo Camillo\nLSatohi\ndino460\n\n"
+  m_text: "Patrick Esc\xF3rcia Taraborelli\nHenrique Matarazo Camillo\nLSatohi\nRaphael
+    Zoega\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1404,10 +1405,10 @@ MonoBehaviour:
   m_margin: {x: 0.1933136, y: 0, z: -0.3397827, w: 0}
   m_textInfo:
     textComponent: {fileID: 845548103}
-    characterCount: 72
+    characterCount: 78
     spriteCount: 0
-    spaceCount: 9
-    wordCount: 8
+    spaceCount: 10
+    wordCount: 9
     linkCount: 0
     lineCount: 5
     pageCount: 1
@@ -2217,7 +2218,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -32.13}
+  m_AnchoredPosition: {x: 0, y: -9.5}
   m_SizeDelta: {x: 406.53, y: 93.22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1687142312
@@ -4228,7 +4229,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -36.8}
+  m_AnchoredPosition: {x: 0, y: -28.6}
   m_SizeDelta: {x: 141.83, y: 44.27}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1811883260

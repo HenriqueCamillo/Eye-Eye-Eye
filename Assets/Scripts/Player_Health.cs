@@ -9,15 +9,19 @@ public class Player_Health : MonoBehaviour
 	public int maxHealth = 100;
 	public int currentHealth;
 	public HealthBar healthBar;
-	//public PlayerMovement movement;
 	public float timeInvincible = 1.0f;
     bool isInvincible;
     float invincibleTimer;
     
+	//public AudioSource tickSource;
+	
     void Start()
     {
 		currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+		
+		//tickSource = GetComponent<AudioSource> ();
+		
     }
     
     void Update()
@@ -45,13 +49,14 @@ public class Player_Health : MonoBehaviour
 		currentHealth -= damage;
 		healthBar.SetHealth(currentHealth);
 		
+		//tickSource.Play ();
+		
 		if (currentHealth <= 0)
 		{
 			Debug.Log("GAME OVER");
 			SceneManager.LoadScene("GameOver");
 			
-			//movement.enabled = false;
-			//FindObjectOfType<GameManager>().EndGame();
+			
 		}
 		
 	}

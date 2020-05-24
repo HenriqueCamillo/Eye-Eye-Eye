@@ -10,7 +10,15 @@ public class Patrol : MonoBehaviour
     private bool movingRight = true;
 
     public Transform groundDetection;
-
+	
+	//public AudioSource tickSource;
+	
+	/*
+	void Start (){
+		tickSource = GetComponent<AudioSource> ();
+	}
+	*/
+	
     private void Update()
     {
         transform.Translate(Vector2.right * speed * Time.deltaTime);
@@ -29,4 +37,10 @@ public class Patrol : MonoBehaviour
             }
         }
     }
+	
+	/*OnTriggerEnter2D(Collider2D other)
+	{
+	tickSource.Play ();
+	}
+	*/
 }

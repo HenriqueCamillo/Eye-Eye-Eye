@@ -47,6 +47,8 @@ public class EyeMovement : MonoBehaviour
     private bool rising;
     private bool isRunning;
     private bool preparingRun;
+	
+	public AudioSource tickSource;
 
     void Start()
     {
@@ -54,6 +56,8 @@ public class EyeMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         sRenderer = GetComponent<SpriteRenderer>();
         health = GetComponent<Player_Health>();
+		
+		tickSource = GetComponent<AudioSource> ();
     }
 
     private void Update()
@@ -158,8 +162,12 @@ public class EyeMovement : MonoBehaviour
             if (isGrounded)
             {
                 rBody.velocity = new Vector2(rBody.velocity.x, jumpForce);
-                if (!isRunning)
+                if (!isRunning){
                     animator.SetTrigger("Jump");
+				
+					//mod patrick, jump sound
+					tickSource.Play();
+				}
 
                 if (rBody.velocity.y > 0f)
                     rising = true;
