@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Player_Health : MonoBehaviour
 {
@@ -45,8 +47,11 @@ public class Player_Health : MonoBehaviour
 		
 		if (currentHealth <= 0)
 		{
+			Debug.Log("GAME OVER");
+			SceneManager.LoadScene("GameOver");
+			
 			//movement.enabled = false;
-			FindObjectOfType<GameManager>().EndGame();
+			//FindObjectOfType<GameManager>().EndGame();
 
             SoundManager.instance.PlayGameOverMusic();
 		}
