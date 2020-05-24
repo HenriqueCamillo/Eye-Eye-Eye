@@ -47,6 +47,8 @@ public class Player_Health : MonoBehaviour
 		{
 			//movement.enabled = false;
 			FindObjectOfType<GameManager>().EndGame();
+
+            SoundManager.instance.PlayGameOverMusic();
 		}
 		
 	}
