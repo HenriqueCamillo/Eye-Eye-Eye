@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 587790630}
   m_Layer: 2
   m_Name: Eye
-  m_TagString: Untagged
+  m_TagString: Jogador
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -167,7 +167,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 10
   m_Sprite: {fileID: -5106865845928226225, guid: 105de262344ef764da96373dad0d22e4,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
