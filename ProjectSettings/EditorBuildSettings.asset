@@ -9,17 +9,14 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 2f11c56cf31f2b447a42561a983b8fb4
   - enabled: 1
+    path: Assets/Scenes/Level_00.unity
+    guid: 32bdaf519c6e76b46867b23ad4122380
+  - enabled: 1
     path: Assets/Scenes/Level_01.unity
     guid: 36034c658b2f0af4c88a7ace017874bb
   - enabled: 1
     path: "Assets/Scenes/Cr\xE9ditos.unity"
     guid: 46d2c607c82fe0d4393614ab95e6369a
-  - enabled: 1
-    path: Assets/Scenes/Player.unity
-    guid: 947f9530857f9c94e98cd0e73bb1f8f4
-  - enabled: 1
-    path: Assets/Scenes/PauseMenu.unity
-    guid: 1e5fdeea7cf71c84abfc555e852d21a5
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: aecae8887c572114f8db3e1cb57ab53f

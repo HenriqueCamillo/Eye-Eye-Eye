@@ -56,7 +56,8 @@ public class Player_Health : MonoBehaviour
 			Debug.Log("GAME OVER");
 			SceneManager.LoadScene("GameOver");
 			
-			
+            SoundManager.instance.PlayGameOverMusic();
+
 		}
 		
 	}

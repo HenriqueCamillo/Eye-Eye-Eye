@@ -17,7 +17,7 @@ public class Menu : MonoBehaviour
 	public void Iniciar ()
 	{
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-		
+		SoundManager.instance.PlayGameMusic();
 	}
 	
 	public void Sair ()
@@ -30,6 +30,7 @@ public class Menu : MonoBehaviour
 	{
 		Debug.Log("Carregando o menu");
 		SceneManager.LoadScene("Menu Principal");
+		SoundManager.instance.PlayMenuMusic();
 	}
 	
 	public void LoadExtra1()
