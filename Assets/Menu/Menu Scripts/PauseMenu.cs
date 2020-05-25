@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -9,7 +10,13 @@ public class PauseMenu : MonoBehaviour
 
     //public GameObject pauseMenuUI;
 	public GameObject pauseMenu;
+	[SerializeField] Canvas canvas;
 	
+	void Start()
+	{
+		canvas = GetComponent<Canvas>();
+	}
+
     void Update()
     {
 		if(Input.GetKeyDown(KeyCode.Escape))
@@ -30,6 +37,7 @@ public class PauseMenu : MonoBehaviour
 		pauseMenu.SetActive(false);
 		Time.timeScale = 1f; //Retorna o valor do tempo ao valor inicial
 		GameIsPaused = false;
+		canvas.sortingOrder = 9;
 	}
 	
 	void Pause()
@@ -37,6 +45,7 @@ public class PauseMenu : MonoBehaviour
 		pauseMenu.SetActive(true);
 		Time.timeScale = 0f; //Pausa o jogo
 		GameIsPaused = true;
+		canvas.sortingOrder = 11;
 	}
 /*
 	void Update()
@@ -53,9 +62,10 @@ public class PauseMenu : MonoBehaviour
 		Time.timeScale = 1f;
 	}
 */
-	public void QuitGame()
+
+	public void LoadMenu()
 	{
-		Debug.Log("quit game");
-		Application.Quit();
+		SceneManager.LoadScene(0);
+		SoundManager.instance.PlayMenuMusic();
 	}
 }
