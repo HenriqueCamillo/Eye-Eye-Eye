@@ -35,7 +35,8 @@ public class EyeMovement : MonoBehaviour
     [SerializeField] Transform wallDetectorL;
     [SerializeField] Transform wallDetectorR;
     [SerializeField] Transform groundDetector;
-    [SerializeField] float detectorRadius;
+    [SerializeField] float groundDetectorRadius;
+    [SerializeField] float wallDetectorRadius;
 
     private bool isGrounded;
     private bool isOnWall;
@@ -44,8 +45,10 @@ public class EyeMovement : MonoBehaviour
     private int wallSide;
     private bool isSliding;
     private bool wallJumping;
+    private bool jumping;
     private bool rising;
     private bool isRunning;
+    private bool isClimbing;
     private bool preparingRun;
 	
 	public AudioSource tickSource;
@@ -91,7 +94,7 @@ public class EyeMovement : MonoBehaviour
         RunningCheck((int)horizontalInputRaw);
 
         float movementSpeed;
-        
+        isClimbing = false;
         if (isRunning)
             movementSpeed = Mathf.Lerp(Mathf.Abs(rBody.velocity.x), rollSpeed, acceleration);
         else 
@@ -105,19 +108,31 @@ public class EyeMovement : MonoBehaviour
                 movementSpeed = Mathf.Lerp(rBody.velocity.x, horizontalInput * speed, acceleration);
                 rBody.velocity = new Vector2(movementSpeed, rBody.velocity.y);
             }
+            else if (isOnWall && isGrounded && !jumping)
+            {
+                isClimbing = true;
+                int yDirection = wallSide == horizontalInputRaw ? 1 : -1;
+                rBody.velocity = new Vector2(horizontalInput, yDirection) * movementSpeed;
+            }
             else
                 rBody.velocity = new Vector2(horizontalInput * movementSpeed, rBody.velocity.y);
         }
         else 
             rBody.velocity = Vector2.Lerp(rBody.velocity, new Vector2(horizontalInput * movementSpeed, rBody.velocity.y), Time.deltaTime);
 
+        if (isOnWall && !isClimbing)
+        {
+            isRunning = false;
+            animator.SetBool("Running", false);
+            preparingRun = false;
+        }
 
         // Wall and Ground detenction
-        isGrounded = Physics2D.OverlapCircle(groundDetector.position, detectorRadius);
+        isGrounded = Physics2D.OverlapCircle(groundDetector.position, groundDetectorRadius);
         animator.SetBool("Grounded", isGrounded);
 
-        isOnLeftWall =  Physics2D.OverlapCircle(wallDetectorL.position, detectorRadius);
-        isOnRightWall = Physics2D.OverlapCircle(wallDetectorR.position, detectorRadius);
+        isOnLeftWall =  Physics2D.OverlapCircle(wallDetectorL.position, wallDetectorRadius);
+        isOnRightWall = Physics2D.OverlapCircle(wallDetectorR.position, wallDetectorRadius);
 
         isOnWall = isOnLeftWall || isOnRightWall;
         wallSide = !isOnWall ? 0 : isOnLeftWall ? -1 : 1;
@@ -126,6 +141,7 @@ public class EyeMovement : MonoBehaviour
             animator.SetTrigger("Fall");
         else
             animator.ResetTrigger("Fall");
+
 
         // Checks if should slide
         if (wallSide == horizontalInputRaw)
@@ -161,11 +177,10 @@ public class EyeMovement : MonoBehaviour
         {
             if (isGrounded)
             {
+                StartCoroutine(SetJumpFlag());
                 rBody.velocity = new Vector2(rBody.velocity.x, jumpForce);
                 if (!isRunning){
                     animator.SetTrigger("Jump");
-				
-					//mod patrick, jump sound
 					tickSource.Play();
 				}
 
@@ -179,7 +194,6 @@ public class EyeMovement : MonoBehaviour
                 StartCoroutine(SetWallJumpFlag());
                 animator.ResetTrigger("MidAir");
                 
-                //mod patrick, jump sound
                 tickSource.Play();
 
                 if (!isRunning)
@@ -245,6 +259,13 @@ public class EyeMovement : MonoBehaviour
         wallJumping = false;
     }
     
+    private IEnumerator SetJumpFlag()
+    {
+        jumping = true;
+        yield return new WaitForSeconds(wallJumpTime);
+        jumping = false;
+    }
+
     private void StopSliding()
     {
         isSliding = false;
@@ -274,8 +295,8 @@ public class EyeMovement : MonoBehaviour
     {
         Gizmos.color = Color.red;
 
-        Gizmos.DrawWireSphere(wallDetectorL.position, detectorRadius);
-        Gizmos.DrawWireSphere(wallDetectorR.position, detectorRadius);
-        Gizmos.DrawWireSphere(groundDetector.position, detectorRadius);
+        Gizmos.DrawWireSphere(wallDetectorL.position, wallDetectorRadius);
+        Gizmos.DrawWireSphere(wallDetectorR.position, wallDetectorRadius);
+        Gizmos.DrawWireSphere(groundDetector.position, groundDetectorRadius);
     }
 }

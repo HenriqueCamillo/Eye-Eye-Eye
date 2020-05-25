@@ -231,7 +231,8 @@ MonoBehaviour:
   wallDetectorL: {fileID: 482773160}
   wallDetectorR: {fileID: 389576038}
   groundDetector: {fileID: 356661580}
-  detectorRadius: 0.1
+  groundDetectorRadius: 0.15
+  wallDetectorRadius: 0.1
   tickSource: {fileID: 0}
 --- !u!58 &645529188
 CircleCollider2D:
