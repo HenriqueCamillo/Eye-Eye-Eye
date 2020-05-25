@@ -8,6 +8,7 @@ public class GameOver : MonoBehaviour
 	public void RestartGame()
 	{
 		SceneManager.LoadScene(0);
+		SoundManager.instance.PlayMenuMusic();
 	}
 
 	public void QuitGame()

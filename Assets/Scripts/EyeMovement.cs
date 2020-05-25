@@ -178,6 +178,10 @@ public class EyeMovement : MonoBehaviour
                 rBody.velocity = jumpDirection.normalized * wallJumpForce;
                 StartCoroutine(SetWallJumpFlag());
                 animator.ResetTrigger("MidAir");
+                
+                //mod patrick, jump sound
+                tickSource.Play();
+
                 if (!isRunning)
                     animator.SetTrigger("Jump");
                 animator.SetBool("Sliding", false);

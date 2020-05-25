@@ -21,15 +21,18 @@ public class SoundManager : MonoBehaviour
 
     public void PlayMenuMusic()
     {
-        audioSource.PlayOneShot(menuMusic);
+        audioSource.clip = menuMusic;
+        audioSource.Play();
     }
     public void PlayGameMusic()
     {
-        audioSource.PlayOneShot(gameMusic);
+        audioSource.clip = gameMusic;
+        audioSource.Play();
     }
 
     public void PlayGameOverMusic()
     {
-        audioSource.PlayOneShot(gameOverMusic);
+        audioSource.clip = gameOverMusic;
+        audioSource.Play();
     }
 }

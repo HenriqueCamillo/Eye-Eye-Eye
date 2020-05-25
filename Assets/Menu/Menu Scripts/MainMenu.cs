@@ -20,5 +20,6 @@ public class MainMenu : MonoBehaviour
 	{
 		Debug.Log("Carregando o menu");
 		SceneManager.LoadScene("MainMenu");
+		SoundManager.instance.PlayMenuMusic();
 	}
 }
