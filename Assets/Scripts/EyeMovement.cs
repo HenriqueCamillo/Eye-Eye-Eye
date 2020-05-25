@@ -107,7 +107,11 @@ public class EyeMovement : MonoBehaviour
             {
                 isClimbing = true;
                 int yDirection = wallSide == horizontalInputRaw ? 1 : -1;
-                rBody.velocity = new Vector2(horizontalInput, yDirection) * movementSpeed;
+
+                if (runningDirection != horizontalInputRaw)
+                    rBody.velocity = Vector2.Lerp(rBody.velocity,  new Vector2(horizontalInput, yDirection) * speed, acceleration);
+                else
+                    rBody.velocity = new Vector2(horizontalInput, yDirection) * movementSpeed;
             }
             else if (runningDirection != horizontalInputRaw)
             {
