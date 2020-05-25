@@ -103,16 +103,16 @@ public class EyeMovement : MonoBehaviour
         if (!wallJumping)
         {
             int runningDirection = rBody.velocity.x > 0 ? 1 : rBody.velocity.x < 0 ? -1 : 0;
-            if (runningDirection != horizontalInputRaw)
-            {
-                movementSpeed = Mathf.Lerp(rBody.velocity.x, horizontalInput * speed, acceleration);
-                rBody.velocity = new Vector2(movementSpeed, rBody.velocity.y);
-            }
-            else if (isOnWall && isGrounded && !jumping)
+            if (isOnWall && isGrounded && !jumping)
             {
                 isClimbing = true;
                 int yDirection = wallSide == horizontalInputRaw ? 1 : -1;
                 rBody.velocity = new Vector2(horizontalInput, yDirection) * movementSpeed;
+            }
+            else if (runningDirection != horizontalInputRaw)
+            {
+                movementSpeed = Mathf.Lerp(rBody.velocity.x, horizontalInput * speed, acceleration);
+                rBody.velocity = new Vector2(movementSpeed, rBody.velocity.y);
             }
             else
                 rBody.velocity = new Vector2(horizontalInput * movementSpeed, rBody.velocity.y);
