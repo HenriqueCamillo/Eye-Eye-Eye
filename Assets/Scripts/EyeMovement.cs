@@ -7,6 +7,7 @@ public class EyeMovement : MonoBehaviour
     private Rigidbody2D rBody;
     private Animator animator;
     private SpriteRenderer sRenderer;
+	private AudioSource tickSource;
     private Player_Health health;
 
     [Header("Roll")]
@@ -34,7 +35,10 @@ public class EyeMovement : MonoBehaviour
     [Header("Detectors")]
     [SerializeField] Transform wallDetectorL;
     [SerializeField] Transform wallDetectorR;
-    [SerializeField] Transform groundDetector;
+    [SerializeField] Transform rampDetectorL;
+    [SerializeField] Transform rampDetectorR;
+    [SerializeField] Transform groundDetectorL;
+    [SerializeField] Transform groundDetectorR;
     [SerializeField] float groundDetectorRadius;
     [SerializeField] float wallDetectorRadius;
 
@@ -42,6 +46,9 @@ public class EyeMovement : MonoBehaviour
     private bool isOnWall;
     private bool isOnLeftWall;
     private bool isOnRightWall;
+    private bool rampLeft;
+    private bool rampRight;
+    private bool ramp;
     private int wallSide;
     private bool isSliding;
     private bool wallJumping;
@@ -50,8 +57,6 @@ public class EyeMovement : MonoBehaviour
     private bool isRunning;
     private bool isClimbing;
     private bool preparingRun;
-	
-	public AudioSource tickSource;
 
     void Start()
     {
@@ -59,8 +64,7 @@ public class EyeMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         sRenderer = GetComponent<SpriteRenderer>();
         health = GetComponent<Player_Health>();
-		
-		tickSource = GetComponent<AudioSource> ();
+		tickSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -103,7 +107,8 @@ public class EyeMovement : MonoBehaviour
         if (!wallJumping)
         {
             int runningDirection = rBody.velocity.x > 0 ? 1 : rBody.velocity.x < 0 ? -1 : 0;
-            if (isOnWall && isGrounded && !jumping)
+            ramp = runDirection == 1 ? rampRight : runDirection == -1 ? rampLeft : false;
+            if (isOnWall && isGrounded && !jumping && ramp)
             {
                 isClimbing = true;
                 int yDirection = wallSide == horizontalInputRaw ? 1 : -1;
@@ -132,11 +137,14 @@ public class EyeMovement : MonoBehaviour
         }
 
         // Wall and Ground detenction
-        isGrounded = Physics2D.OverlapCircle(groundDetector.position, groundDetectorRadius);
+        isGrounded = Physics2D.OverlapCircle(groundDetectorL.position, groundDetectorRadius)
+                  || Physics2D.OverlapCircle(groundDetectorR.position, groundDetectorRadius);
         animator.SetBool("Grounded", isGrounded);
 
         isOnLeftWall =  Physics2D.OverlapCircle(wallDetectorL.position, wallDetectorRadius);
         isOnRightWall = Physics2D.OverlapCircle(wallDetectorR.position, wallDetectorRadius);
+        rampLeft = !Physics2D.OverlapCircle(rampDetectorL.position, wallDetectorRadius);
+        rampRight = !Physics2D.OverlapCircle(rampDetectorR.position, wallDetectorRadius);
 
         isOnWall = isOnLeftWall || isOnRightWall;
         wallSide = !isOnWall ? 0 : isOnLeftWall ? -1 : 1;
@@ -301,6 +309,9 @@ public class EyeMovement : MonoBehaviour
 
         Gizmos.DrawWireSphere(wallDetectorL.position, wallDetectorRadius);
         Gizmos.DrawWireSphere(wallDetectorR.position, wallDetectorRadius);
-        Gizmos.DrawWireSphere(groundDetector.position, groundDetectorRadius);
+        Gizmos.DrawWireSphere(rampDetectorL.position, wallDetectorRadius);
+        Gizmos.DrawWireSphere(rampDetectorR.position, wallDetectorRadius);
+        Gizmos.DrawWireSphere(groundDetectorL.position, groundDetectorRadius);
+        Gizmos.DrawWireSphere(groundDetectorR.position, groundDetectorRadius);
     }
 }
