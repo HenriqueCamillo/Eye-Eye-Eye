@@ -193,8 +193,8 @@ public class EyeMovement : MonoBehaviour
                 rBody.velocity = new Vector2(rBody.velocity.x, jumpForce);
                 if (!isRunning){
                     animator.SetTrigger("Jump");
-					tickSource.Play();
 				}
+                tickSource.Play();
 
                 if (rBody.velocity.y > 0f)
                     rising = true;
