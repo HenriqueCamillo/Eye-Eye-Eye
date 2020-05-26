@@ -1,35 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &356661579
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 356661580}
-  m_Layer: 2
-  m_Name: GroundDetectorL
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &356661580
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 356661579}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.12, y: -0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 6917484767821348814}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &389576037
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,7 +70,7 @@ GameObject:
   m_Component:
   - component: {fileID: 659235649642211403}
   m_Layer: 2
-  m_Name: GroundDetectorR
+  m_Name: GroundDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,11 +84,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2680310309793281958}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.12, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0, y: -0.45, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6917484767821348814}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4985010486078297567
 GameObject:
@@ -148,7 +118,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6917484767821348814}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6917484767821348802
 GameObject:
@@ -166,6 +136,7 @@ GameObject:
   - component: {fileID: 9027268515568125354}
   - component: {fileID: 6917484767821348815}
   - component: {fileID: 587790630}
+  - component: {fileID: 8292364122655091043}
   m_Layer: 2
   m_Name: Eye
   m_TagString: Jogador
@@ -186,7 +157,6 @@ Transform:
   m_Children:
   - {fileID: 482773160}
   - {fileID: 389576038}
-  - {fileID: 356661580}
   - {fileID: 659235649642211403}
   - {fileID: 6139490343097747002}
   - {fileID: 8377910323028795432}
@@ -251,7 +221,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6917484767821348802}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 6200000, guid: a270655dc9b0dfd40b32b5f0cc3e69ec, type: 2}
   m_IsTrigger: 0
@@ -436,9 +406,8 @@ MonoBehaviour:
   wallDetectorR: {fileID: 389576038}
   rampDetectorL: {fileID: 6139490343097747002}
   rampDetectorR: {fileID: 8377910323028795432}
-  groundDetectorL: {fileID: 356661580}
-  groundDetectorR: {fileID: 659235649642211403}
-  groundDetectorRadius: 0.15
+  groundDetector: {fileID: 659235649642211403}
+  groundDetectorRadius: 0.2
   wallDetectorRadius: 0.1
 --- !u!114 &587790630
 MonoBehaviour:
@@ -456,6 +425,37 @@ MonoBehaviour:
   currentHealth: 0
   healthBar: {fileID: 0}
   timeInvincible: 1
+--- !u!60 &8292364122655091043
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6917484767821348802}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: a270655dc9b0dfd40b32b5f0cc3e69ec, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.0625, y: 1.0625}
+    newSize: {x: 0.2, y: 0.2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.31, y: -0.28}
+      - {x: -0.21, y: -0.5}
+      - {x: 0.21, y: -0.5}
+      - {x: 0.31, y: -0.28}
+      - {x: 0.31, y: 0.22}
+      - {x: -0.31, y: 0.22}
 --- !u!1 &9031041630738834267
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,5 +484,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6917484767821348814}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

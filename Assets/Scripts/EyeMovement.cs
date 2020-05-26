@@ -37,8 +37,7 @@ public class EyeMovement : MonoBehaviour
     [SerializeField] Transform wallDetectorR;
     [SerializeField] Transform rampDetectorL;
     [SerializeField] Transform rampDetectorR;
-    [SerializeField] Transform groundDetectorL;
-    [SerializeField] Transform groundDetectorR;
+    [SerializeField] Transform groundDetector;
     [SerializeField] float groundDetectorRadius;
     [SerializeField] float wallDetectorRadius;
 
@@ -137,8 +136,7 @@ public class EyeMovement : MonoBehaviour
         }
 
         // Wall and Ground detenction
-        isGrounded = Physics2D.OverlapCircle(groundDetectorL.position, groundDetectorRadius)
-                  || Physics2D.OverlapCircle(groundDetectorR.position, groundDetectorRadius);
+        isGrounded = Physics2D.OverlapCircle(groundDetector.position, groundDetectorRadius);
         animator.SetBool("Grounded", isGrounded);
 
         isOnLeftWall =  Physics2D.OverlapCircle(wallDetectorL.position, wallDetectorRadius);
@@ -311,7 +309,6 @@ public class EyeMovement : MonoBehaviour
         Gizmos.DrawWireSphere(wallDetectorR.position, wallDetectorRadius);
         Gizmos.DrawWireSphere(rampDetectorL.position, wallDetectorRadius);
         Gizmos.DrawWireSphere(rampDetectorR.position, wallDetectorRadius);
-        Gizmos.DrawWireSphere(groundDetectorL.position, groundDetectorRadius);
-        Gizmos.DrawWireSphere(groundDetectorR.position, groundDetectorRadius);
+        Gizmos.DrawWireSphere(groundDetector.position, groundDetectorRadius);
     }
 }
